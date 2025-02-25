@@ -1,0 +1,11 @@
+F:\Jsp_Hibernate\src\main\java\com\mycompany\DAO\TareaDAO.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\RegistrarProyectoServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\ListarTareasServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\util\HibernateUtil.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\model\Tarea.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\DAO\ProyectoDAO.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\EliminarProyectoServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\ListarProyectosServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\EliminarTareaServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\Servlet\RegistrarTareaServlet.java
+F:\Jsp_Hibernate\src\main\java\com\mycompany\model\Proyecto.java

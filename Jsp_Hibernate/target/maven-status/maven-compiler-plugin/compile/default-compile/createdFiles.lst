@@ -1,0 +1,11 @@
+com\mycompany\Servlet\ListarProyectosServlet.class
+com\mycompany\util\HibernateUtil.class
+com\mycompany\DAO\ProyectoDAO.class
+com\mycompany\model\Proyecto.class
+com\mycompany\Servlet\RegistrarTareaServlet.class
+com\mycompany\Servlet\EliminarTareaServlet.class
+com\mycompany\Servlet\ListarTareasServlet.class
+com\mycompany\DAO\TareaDAO.class
+com\mycompany\Servlet\EliminarProyectoServlet.class
+com\mycompany\model\Tarea.class
+com\mycompany\Servlet\RegistrarProyectoServlet.class
