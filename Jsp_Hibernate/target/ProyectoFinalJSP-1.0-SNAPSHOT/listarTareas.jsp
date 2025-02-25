@@ -23,8 +23,10 @@
             </thead>
             <tbody>
                 <% 
+                    // Obtener la lista de tareas desde el request
                     List<Tarea> tareas = (List<Tarea>) request.getAttribute("tareas");
-                    if (tareas != null) {
+                    if (tareas != null && !tareas.isEmpty()) { 
+                        // Si hay tareas, las iteramos
                         for (Tarea tarea : tareas) { 
                 %>
                     <tr>
@@ -38,8 +40,11 @@
                         } 
                     } else { 
                 %>
+                    <!-- Si no hay tareas, mostramos un mensaje -->
                     <tr>
-                        <td colspan="5">No hay tareas disponibles.</td>
+                        <td colspan="5" style="text-align: center; color: red;">
+                            No hay tareas registradas.
+                        </td>
                     </tr>
                 <% } %>
             </tbody>

@@ -5,24 +5,41 @@ import com.mycompany.model.Tarea;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import com.mycompany.util.HibernateUtil;
+import java.util.ArrayList;
+import org.hibernate.query.Query;
 
 public class TareaDAO {
 
-   // Método para obtener tareas por proyecto
-   public List<Tarea> getTareasPorProyecto(int idProyecto) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Tarea> tareas = null;
-        try {
-            tareas = session.createQuery("FROM Tarea WHERE proyecto.id = :idProyecto", Tarea.class)
-                            .setParameter("idProyecto", idProyecto)
-                            .list();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();  // Asegurarse de cerrar la sesión incluso en caso de error
-        }
-        return tareas;
+  public List<Tarea> getTareasPorProyecto(int idProyecto) {
+    List<Tarea> tareas = null;
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        tareas = session.createQuery("FROM Tarea WHERE proyecto.id = :idProyecto", Tarea.class)
+                        .setParameter("idProyecto", idProyecto)
+                        .list();
+        System.out.println("Consulta ejecutada, tareas obtenidas: " + tareas);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return tareas;
+}
+
+  public List<Tarea> obtenerTodasLasTareas() {
+    List<Tarea> tareas = new ArrayList<>();
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    try {
+        session.beginTransaction();
+        Query query = session.createQuery("FROM Tarea");
+        tareas = query.list(); // Aquí obtienes todas las tareas
+        session.getTransaction().commit();
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        session.close();
+    }
+    return tareas;
+}
+
+
 
     // Método para guardar una tarea
     public void saveTarea(Tarea tarea) {
