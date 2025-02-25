@@ -21,6 +21,7 @@
             <a href="registrarTarea.jsp" class="button">Registrar Tarea</a>
             <a href="listarProyectos" class="button">Listar Proyectos</a>
             <a href="listarTareas" class="button">Listar Tareas</a>
+             <a href="eliminarTarea.jsp" class="button">Eliminar Tareas</a>
         </div>
     </div>
 </body>

@@ -10,17 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.mycompany.model.Proyecto;
+import java.util.ArrayList;
+import java.util.logging.Logger;
 
 @WebServlet("/listarProyectos")
 public class ListarProyectosServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String estado = request.getParameter("estado");
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProyectoDAO proyectoDAO = new ProyectoDAO();
-        List<Proyecto> proyectos = proyectoDAO.getProyectosPorEstado(estado);
+        List<Proyecto> proyectos = proyectoDAO.listarProyectos();
+
+        // Asegúrate de que proyectos nunca sea null
+        if (proyectos == null) {
+            proyectos = new ArrayList<>();
+        }
 
         request.setAttribute("proyectos", proyectos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("listarProyectos.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/listarProyectos.jsp").forward(request, response);
     }
 }

@@ -18,16 +18,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author alumno
  */
-@WebServlet("/eliminarTarea")
+@WebServlet("/EliminarTarea")
 public class EliminarTareaServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
+    // Método para eliminar tarea
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idTarea = Integer.parseInt(request.getParameter("idTarea"));
-
+        int tareaId = Integer.parseInt(request.getParameter("tareaId"));
+        
+        // Llamada al DAO para eliminar la tarea
         TareaDAO tareaDAO = new TareaDAO();
-        tareaDAO.deleteTarea(idTarea);
-
-        int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
-        response.sendRedirect("listarTareas?idProyecto=" + idProyecto);
+        boolean tareaEliminada = tareaDAO.eliminarTarea(tareaId);
+        
+        if (tareaEliminada) {
+            response.sendRedirect("listarTareas.jsp");  // Redirige a la lista de tareas si fue eliminada
+        } else {
+            request.setAttribute("error", "No se pudo eliminar la tarea.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);  // Redirige a una página de error
+        }
     }
 }

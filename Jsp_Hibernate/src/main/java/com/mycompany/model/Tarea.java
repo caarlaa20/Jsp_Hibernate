@@ -1,46 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.model;
 
-/**
- *
- * @author alumno
- */
-
-
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tareas")
 public class Tarea {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
+
+    @Column(name = "responsable", nullable = false)
+    private String responsable;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_inicio", nullable = false)
+    private Date fechaInicio;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fecha_fin", nullable = false)
+    private Date fechaFin;
+
+    @Column(name = "estado", nullable = false)
+    private String estado;
+
     @ManyToOne
-    @JoinColumn(name = "id_proyecto")
+    @JoinColumn(name = "id_proyecto", nullable = false)
     private Proyecto proyecto;
 
-    private String descripcionTarea;
-    private String responsable;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private String estado; // "pendiente", "en progreso", "completada"
+    // Constructor vacío
+    public Tarea() {
+    }
 
     // Getters y Setters
-
     public int getId() {
         return id;
     }
@@ -49,20 +45,12 @@ public class Tarea {
         this.id = id;
     }
 
-    public Proyecto getProyecto() {
-        return proyecto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public String getDescripcionTarea() {
-        return descripcionTarea;
-    }
-
-    public void setDescripcionTarea(String descripcionTarea) {
-        this.descripcionTarea = descripcionTarea;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getResponsable() {
@@ -96,8 +84,12 @@ public class Tarea {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
+    }
 }
-
-

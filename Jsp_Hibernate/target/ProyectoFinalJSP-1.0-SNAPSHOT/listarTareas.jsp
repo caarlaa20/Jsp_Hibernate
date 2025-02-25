@@ -1,18 +1,10 @@
-<%-- 
-    Document   : listarTareas
-    Created on : 21 feb 2025, 19:45:38
-    Author     : alumno
---%>
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.mycompany.model.Tarea" %>
-<%@ page import="com.mycompany.model.Proyecto" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Tareas</title>
+    <title>Lista de Tareas</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -30,21 +22,26 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí deberías iterar sobre las tareas del proyecto -->
-                <tr>
-                    <td>Tarea A</td>
-                    <td>Juan Pérez</td>
-                    <td>2025-01-01</td>
-                    <td>2025-03-31</td>
-                    <td>En progreso</td>
-                </tr>
-                <tr>
-                    <td>Tarea B</td>
-                    <td>Ana García</td>
-                    <td>2025-02-01</td>
-                    <td>2025-06-30</td>
-                    <td>Pendiente</td>
-                </tr>
+                <% 
+                    List<Tarea> tareas = (List<Tarea>) request.getAttribute("tareas");
+                    if (tareas != null) {
+                        for (Tarea tarea : tareas) { 
+                %>
+                    <tr>
+                        <td><%= tarea.getDescripcion() %></td>
+                        <td><%= tarea.getResponsable() %></td>
+                        <td><%= tarea.getFechaInicio() %></td>
+                        <td><%= tarea.getFechaFin() %></td>
+                        <td><%= tarea.getEstado() %></td>
+                    </tr>
+                <% 
+                        } 
+                    } else { 
+                %>
+                    <tr>
+                        <td colspan="5">No hay tareas disponibles.</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
     </div>

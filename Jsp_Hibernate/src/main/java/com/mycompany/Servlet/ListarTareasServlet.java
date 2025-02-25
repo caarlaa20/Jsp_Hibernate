@@ -25,13 +25,27 @@ import javax.servlet.http.HttpServletResponse;
 public class ListarTareasServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idProyecto = Integer.parseInt(request.getParameter("idProyecto"));
-        TareaDAO tareaDAO = new TareaDAO();
-        List<Tarea> tareas = tareaDAO.getTareasPorProyecto(idProyecto);
+        String idProyectoParam = request.getParameter("idProyecto");
 
-        request.setAttribute("tareas", tareas);
-        request.setAttribute("idProyecto", idProyecto);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("listarTareas.jsp");
-        dispatcher.forward(request, response);
+        // Verificar si el parámetro es nulo o vacío
+        if (idProyectoParam == null || idProyectoParam.isEmpty()) {
+            request.setAttribute("error", "ID de proyecto no válido.");
+            request.getRequestDispatcher("listarTareas.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            int idProyecto = Integer.parseInt(idProyectoParam);
+            TareaDAO tareaDAO = new TareaDAO();
+            List<Tarea> tareas = tareaDAO.getTareasPorProyecto(idProyecto);
+
+            request.setAttribute("tareas", tareas);
+            request.setAttribute("idProyecto", idProyecto);
+            request.getRequestDispatcher("listarTareas.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Formato de ID inválido.");
+            request.getRequestDispatcher("listarTareas.jsp").forward(request, response);
+        }
     }
 }

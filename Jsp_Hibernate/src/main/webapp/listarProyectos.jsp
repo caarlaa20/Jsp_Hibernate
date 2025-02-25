@@ -1,9 +1,3 @@
-<%-- 
-    Document   : listarProyectos
-    Created on : 21 feb 2025, 19:45:10
-    Author     : alumno
---%>
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.mycompany.model.Proyecto" %>
 <!DOCTYPE html>
@@ -12,46 +6,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Proyectos</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Vincula tu CSS -->
 </head>
 <body>
     <div class="container">
         <h1>Lista de Proyectos</h1>
-        <form method="get" action="listarProyectos">
-            <label for="estado">Filtrar por estado:</label>
-            <select name="estado" id="estado">
-                <option value="en curso">En curso</option>
-                <option value="completado">Completado</option>
-            </select>
-            <button type="submit" class="button">Filtrar</button>
-        </form>
 
         <table class="table">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Fecha de Inicio</th>
-                    <th>Fecha de Fin</th>
                     <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí deberías iterar sobre los proyectos en tu backend -->
+                <% 
+                    List<Proyecto> proyectos = (List<Proyecto>) request.getAttribute("proyectos");
+
+                    if (proyectos != null && !proyectos.isEmpty()) {
+                        for (Proyecto proyecto : proyectos) {
+                %>
                 <tr>
-                    <td>Proyecto A</td>
-                    <td>Descripción del proyecto A</td>
-                    <td>2025-01-01</td>
-                    <td>2025-12-31</td>
-                    <td>En curso</td>
+                    <td><%= proyecto.getId() %></td>
+                    <td><%= proyecto.getNombreProyecto() %></td>
+                    <td><%= proyecto.getEstado() %></td>
                 </tr>
+                <% 
+                        }
+                    } else {
+                %>
                 <tr>
-                    <td>Proyecto B</td>
-                    <td>Descripción del proyecto B</td>
-                    <td>2025-02-01</td>
-                    <td>2025-06-30</td>
-                    <td>Completado</td>
+                    <td colspan="3" class="no-projects">No hay proyectos disponibles.</td>
                 </tr>
+                <% 
+                    }
+                %>
             </tbody>
         </table>
     </div>

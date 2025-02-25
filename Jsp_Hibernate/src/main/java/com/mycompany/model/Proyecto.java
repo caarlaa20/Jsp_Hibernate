@@ -4,6 +4,7 @@
  */
 package com.mycompany.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +29,8 @@ public class Proyecto {
 
     private String nombreProyecto;
     private String descripcion;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
     private String estado;  // "en curso" o "completado"
 
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
@@ -59,19 +60,19 @@ public class Proyecto {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 

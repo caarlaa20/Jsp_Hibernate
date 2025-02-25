@@ -18,15 +18,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author alumno
  */
-@WebServlet("/eliminarProyecto")
+@WebServlet("/EliminarProyecto")
 public class EliminarProyectoServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
+    // Método para eliminar proyecto
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-
+        int proyectoId = Integer.parseInt(request.getParameter("proyectoId"));
+        
+        // Llamada al DAO para eliminar el proyecto
         ProyectoDAO proyectoDAO = new ProyectoDAO();
-        proyectoDAO.deleteProyecto(id);
-
-        response.sendRedirect("listarProyectos");
+        boolean proyectoEliminado = proyectoDAO.eliminarProyecto(proyectoId);
+        
+        if (proyectoEliminado) {
+            response.sendRedirect("listarProyectos.jsp");  // Redirige a la lista de proyectos si fue eliminada
+        } else {
+            request.setAttribute("error", "No se pudo eliminar el proyecto.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);  // Redirige a una página de error
+        }
     }
 }

@@ -25,10 +25,9 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Entities -->
-        <mapping class="org.example.blibliotecafx.Entities.Autor"/>
-        <mapping class="org.example.blibliotecafx.Entities.Libro"/>
-        <mapping class="org.example.blibliotecafx.Entities.Prestamo"/>
-        <mapping class="org.example.blibliotecafx.Entities.Socio"/>
+        <mapping class="com.mycompany.model.Tarea"/>
+        <mapping class="com.mycompany.model.Proyecto"/>
+       
 
 
     </session-factory>
