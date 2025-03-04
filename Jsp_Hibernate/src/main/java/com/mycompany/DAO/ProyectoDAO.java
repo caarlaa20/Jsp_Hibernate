@@ -11,29 +11,27 @@ import java.util.List;
 
 public class ProyectoDAO {
 
-    public boolean eliminarProyecto(int proyectoId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            Proyecto proyecto = session.get(Proyecto.class, proyectoId);  // Obtiene el proyecto por ID
+       public boolean eliminarProyecto(int idProyecto) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Proyecto proyecto = session.get(Proyecto.class, idProyecto);
+            
             if (proyecto != null) {
-                // Elimina las tareas asociadas al proyecto, si las tiene
-                for (Tarea tarea : proyecto.getTareas()) {
-                    session.delete(tarea);  // Elimina cada tarea
-                }
-                session.delete(proyecto);  // Elimina el proyecto
-                tx.commit();  // Confirma la transacción
+                session.delete(proyecto);
+                transaction.commit();
                 return true;
             }
         } catch (Exception e) {
-            if (tx != null) tx.rollback();  // Revierte si hay un error
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-        } finally {
-            session.close();  // Cierra la sesión de Hibernate
         }
         return false;
     }
+
+    
      public Proyecto getProyectoById(int id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = null;

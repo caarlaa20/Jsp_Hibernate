@@ -221,3 +221,23 @@ a:hover {
 .alert-error {
     background-color: #FF7043;  /* Naranja error */
 }
+.btn-eliminar {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    font-size: 12px; /* Reducir tamaño de la fuente */
+    padding: 3px 6px; /* Reducir el tamaño del botón */
+    border-radius: 3px; /* Esquinas más redondeadas */
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 25px; /* Definir un ancho fijo más pequeño */
+    height: 25px; /* Definir un alto fijo más pequeño */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-eliminar:hover {
+    background-color: #cc0000;
+}
+

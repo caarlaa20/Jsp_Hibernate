@@ -59,23 +59,22 @@ public class TareaDAO {
         }
     }
 
-    // Método para eliminar tarea por ID
-    public boolean eliminarTarea(int tareaId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            Tarea tarea = session.get(Tarea.class, tareaId);  // Obtiene la tarea por ID
+    public boolean eliminarTarea(int idTarea) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Tarea tarea = session.get(Tarea.class, idTarea);
+            
             if (tarea != null) {
-                session.delete(tarea);  // Elimina la tarea de la base de datos
-                tx.commit();  // Confirma la transacción
+                session.delete(tarea);
+                transaction.commit();
                 return true;
             }
         } catch (Exception e) {
-            if (tx != null) tx.rollback();  // Revierte si hay un error
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-        } finally {
-            session.close();  // Cierra la sesión de Hibernate
         }
         return false;
     }
